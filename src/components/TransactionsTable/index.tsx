@@ -1,23 +1,9 @@
-import { useEffect, useState } from 'react';
 import { Container } from './styles';
-import { api } from '../../services/api';
-
-interface Transactions {
-	id: number;
-	title: string;
-	type: string;
-	category: string;
-	amount: number;
-	createdAt: string;
-}
+import { useTransactions } from '../../hooks/useTransactions';
 
 export function TransactionTable() {
 
-	const [transactions, setTransactions] = useState<Transactions[]>([]);
-
-	useEffect(()=>{
-		api.get('transactions').then(response => setTransactions(response.data.transactions));
-	}, []);
+	const { transactions } = useTransactions();
 
 	return (
 		<Container>
@@ -48,7 +34,7 @@ export function TransactionTable() {
 								)}
 							</td>
 						</tr>
-					))};
+					))}
 				</tbody>
 			</table>
 		</Container>
